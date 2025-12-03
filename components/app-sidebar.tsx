@@ -16,21 +16,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import logo from "@/public/logo.png";
 import {
-  FileText,
   LayoutDashboard,
-  Folder,
   LogOut,
   Inbox,
   Calendar,
+  LayoutTemplate,
+  Bolt,
 } from "lucide-react";
+import { supabase } from "@/utils/supabase";
+import { useQueryClient } from "@tanstack/react-query";
 const items = [
   { title: "Dashboard", url: "/app", icon: LayoutDashboard },
   { title: "Inbox", url: "/app/inbox", icon: Inbox },
   { title: "Calendar", url: "/app/calendar", icon: Calendar },
+  { title: "Templates", url: "/app/calendar", icon: LayoutTemplate },
 ];
+
 const AppSidebar = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   return (
-    <Sidebar className="py-5" collapsible={"icon"}>
+    <Sidebar className='py-5' collapsible={"icon"}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -67,17 +73,26 @@ const AppSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-       
         <SidebarGroupLabel>Account</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
-                // onClick={() => {
-                //   queryClient.invalidateQueries({ queryKey: ["documents"] });
-                //   supabase.auth.signOut();
-                //   router.push("/");
-                // }}
+                onClick={() => {
+                  router.push("/app/settings");
+                }}
+              >
+                <Bolt />
+                <span>Settings</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={() => {
+                  queryClient.invalidateQueries({ queryKey: ["documents"] });
+                  supabase.auth.signOut();
+                  router.push("/");
+                }}
                 className={"hover:text-red-500 text-red-500/70 cursor-pointer"}
               >
                 <LogOut />

@@ -32,6 +32,10 @@ const createMockClient = () => {
           data: { provider: null, url: null },
           error: { message: "Supabase not configured" },
         }),
+      signOut: () =>
+        Promise.resolve({
+          error: null,
+        }),
     },
     from: () => ({
       select: () => ({ data: [], error: null }),

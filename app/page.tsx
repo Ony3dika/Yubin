@@ -109,9 +109,7 @@ export default function Home() {
         <p className='md:text-lg text-base my-5 italic'>
           Manage Emails & Appointments
         </p>
-        <Link href='/app'>
-          <Button className='w-fit my-5'>Go</Button>
-        </Link>
+       
         <Tabs defaultValue='tab-1' className={"w-full flex items-center h-4/5"}>
           <ScrollArea className={"w-4/5"}>
             <TabsList className='bg-background rounded-none w-full h-auto -space-x-px p-0 shadow-xs rtl:space-x-reverse'>
