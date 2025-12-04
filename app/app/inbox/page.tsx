@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import { InboxLayout } from "@/components/inbox/InboxLayout";
 
 const InboxPage = () => {
-  return (
-    <main className='p-4'>InboxPage</main>
-  )
-}
+  return <InboxLayout />;
+};
 
-export default InboxPage
+export default InboxPage;

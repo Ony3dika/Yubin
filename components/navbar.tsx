@@ -44,7 +44,7 @@ export default function Component() {
           {userData ? (
             <>
               <p className='text-muted-foreground md:text-base text-sm'>
-                {userData.email}
+                {userData.user_metadata.name || userData.email}
               </p>
               <Avatar>
                 {userData.user_metadata.avatar_url && (

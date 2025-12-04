@@ -79,16 +79,16 @@ export default function Home() {
     setIsSignUpLoading(false);
   };
   const handleSignInWithGoogle = async () => {
-     const { data, error } = await supabase.auth.signInWithOAuth({
-       provider: "google",
-       options: {
-         redirectTo: `${window.location.origin}/auth/callback`,
-       },
-     });
-     if (error) {
-       console.error(error);
-       toast.error(error.message);
-     }
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
   };
   return (
     <main className='h-screen lg:flex justify-between md:p-5'>
@@ -109,7 +109,7 @@ export default function Home() {
         <p className='md:text-lg text-base my-5 italic'>
           Manage Emails & Appointments
         </p>
-       
+
         <Tabs defaultValue='tab-1' className={"w-full flex items-center h-4/5"}>
           <ScrollArea className={"w-4/5"}>
             <TabsList className='bg-background rounded-none w-full h-auto -space-x-px p-0 shadow-xs rtl:space-x-reverse'>
