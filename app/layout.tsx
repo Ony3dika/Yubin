@@ -23,10 +23,15 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`bg-sidebar ${dmSans.className} antialiased`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-        <TanstackProvider>
-        <Toaster richColors theme='system' closeButton position='top-right' />
-        {children}
-        </TanstackProvider>
+          <TanstackProvider>
+            <Toaster
+              richColors
+              theme='system'
+              closeButton
+              position='top-right'
+            />
+            {children}
+          </TanstackProvider>
         </ThemeProvider>
       </body>
     </html>
