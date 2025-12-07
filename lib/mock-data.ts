@@ -13,7 +13,7 @@ export const mockEmails: Email[] = [
     date: "2023-10-27T10:00:00Z",
     read: false,
     labels: ["work", "important"],
-    body: "Hi team,\n\nJust wanted to share the latest progress on Q4 goals. We are on track to meet all our targets. Please review the attached document for more details.\n\nBest,\nAlice",
+    body: "Image Legion logo ( legion.cc ) *************************New deal listed on Legion*************************Makina is the DeFi Execution Engine that provides superior infrastructure for onchain asset management.Projectakina ( https://makina.finance/ )ale Date25 November 2025Previous BackersDialectic, cyber.Fund, Bodhi Ventures, Interop Ventures, Steakhouse Financial, Hypernative Labs, KilnEnable Reminder ( https://app.legion.cc/app/invest/makina/details )Stronger together - Team Legion.age",
     aiAnalysis: {
       type: "meeting",
       summary: "Alice shared Q4 goal progress. Everything is on track.",

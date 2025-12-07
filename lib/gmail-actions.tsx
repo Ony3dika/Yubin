@@ -21,6 +21,7 @@ export function parseEmail(msg: any) {
   const subject = getHeader(headers, "Subject");
   const from = getHeader(headers, "From");
   const dateRaw = getHeader(headers, "Date");
+  const id = msg.id;
 
   let body = "";
   const parts = msg.payload.parts || [];
@@ -31,7 +32,7 @@ export function parseEmail(msg: any) {
     }
   }
 
-  return { subject, from, body, date: dateRaw };
+  return { id,subject, from, body, date: dateRaw };
 }
 
 const fetchEmail = async (googleAccessToken: string) => {

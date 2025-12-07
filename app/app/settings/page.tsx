@@ -56,6 +56,27 @@ const Settings = () => {
     }
   };
 
+  const handleDisconnect = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      const { error } = await supabase
+        .from("gmail_tokens")
+        .delete()
+        .eq("user_id", session.user.id);
+      if (error) {
+        toast.error("Failed to disconnect Gmail");
+      } else {
+        toast.success("Disconnected Gmail");
+        setIsConnected(false);
+        setEmail(null);
+        updateGoogleAccessToken(null);
+      }
+    } else {
+      toast.error("Please sign in to disconnect Gmail");
+    }
+  };
   return (
     <main className='p-4'>
       <h2 className='text-2xl font-semibold tracking-tight'>Settings</h2>
@@ -71,6 +92,7 @@ const Settings = () => {
           </Button>
         ) : isConnected ? (
           <Button
+            onClick={handleDisconnect}
             variant={"outline"}
             className='border-green-500 text-green-600 bg-green-300/10 hover:bg-green-300/30 hover:text-green-600'
           >

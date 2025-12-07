@@ -12,8 +12,8 @@ import { Badge } from "@/components/ui/badge";
 export function RightSidebar() {
   const { emails, selectedEmailIds, currentEmailId } = useInboxStore();
 
-  const selectedEmails = emails.filter((e) => selectedEmailIds.has(e.id));
-  const currentEmail = emails.find((e) => e.id === currentEmailId);
+  const selectedEmails = emails?.filter((e) => selectedEmailIds.has(e.id));
+  const currentEmail = emails?.find((e) => e.id === currentEmailId);
 
   // Determine what to show
   const showBulkActions = selectedEmails.length > 1;
@@ -40,7 +40,7 @@ export function RightSidebar() {
           {showBulkActions && (
             <div className='flex flex-col gap-4'>
               <div className='text-sm text-muted-foreground'>
-                {selectedEmails.length} emails selected
+                {selectedEmails?.length} emails selected
               </div>
 
               <Card>
@@ -73,24 +73,24 @@ export function RightSidebar() {
                     Previewing variables for selected recipients.
                   </div>
                   <div className='grid gap-2'>
-                    {selectedEmails.slice(0, 3).map((email) => (
+                    {selectedEmails?.slice(0, 3).map((email) => (
                       <div
                         key={email.id}
                         className='flex items-center justify-between text-sm border p-2 rounded'
                       >
                         <span className='truncate max-w-[100px]'>
-                          {email.sender.name}
+                          {email.from}
                         </span>
                         <Badge variant='secondary' className='text-[10px]'>
                           Ready
                         </Badge>
                       </div>
                     ))}
-                    {selectedEmails.length > 3 && (
+                    {/* {selectedEmails?.length > 3 && (
                       <div className='text-xs text-center text-muted-foreground'>
-                        + {selectedEmails.length - 3} more
+                        + {selectedEmails?.length - 3} more
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </CardContent>
               </Card>
@@ -142,26 +142,7 @@ export function RightSidebar() {
 
               <Separator />
 
-              {/* CRM Data (Mock) */}
-              <div>
-                <h3 className='text-sm font-medium mb-3'>CRM Details</h3>
-                <div className='grid gap-2 text-sm'>
-                  <div className='flex justify-between'>
-                    <span className='text-muted-foreground'>Company</span>
-                    <span>Acme Inc.</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span className='text-muted-foreground'>Role</span>
-                    <span>Product Manager</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span className='text-muted-foreground'>Status</span>
-                    <Badge variant='outline' className='font-normal'>
-                      Active
-                    </Badge>
-                  </div>
-                </div>
-              </div>
+             
             </div>
           )}
         </div>

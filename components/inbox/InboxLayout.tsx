@@ -68,7 +68,7 @@ export function InboxLayout({
         <ResizablePanel defaultSize={defaultLayout[2]} minSize={20}>
           <div className='flex h-full flex-col'>
             <div className='flex-1 overflow-y-auto'>
-              <RightSidebar />
+              {/* <RightSidebar /> */}
             </div>
           </div>
         </ResizablePanel>

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export interface Email {
+export interface EmailRaw {
   id: string;
   sender: {
     name: string;
@@ -19,6 +19,22 @@ export interface Email {
     suggestedActions?: string[];
     draftReply?: string;
   };
+}
+
+export interface Email {
+  id: string;
+  subject: string;
+  from: string;
+  body: string;
+  date: string;
+  aiAnalysis?: {
+    type: "meeting" | "inquiry" | "follow-up" | "other";
+    summary: string;
+    suggestedActions?: string[];
+    draftReply?: string;
+  };
+  read: boolean;
+  labels: string[];
 }
 
 interface InboxState {

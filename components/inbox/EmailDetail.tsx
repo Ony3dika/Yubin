@@ -23,7 +23,7 @@ import { format } from "date-fns";
 
 export function EmailDetail() {
   const { emails, currentEmailId } = useInboxStore();
-  const email = emails.find((e) => e.id === currentEmailId);
+  const email = emails?.find((e) => e.id === currentEmailId);
 
   if (!email) {
     return (
@@ -77,12 +77,12 @@ export function EmailDetail() {
             <div className='flex items-start gap-3'>
               {/* Avatar placeholder */}
               <div className='h-10 w-10 rounded-full bg-accent/20 flex items-center justify-center text-sm font-medium'>
-                {email.sender.name.charAt(0)}
+                {email.from.charAt(0)}
               </div>
               <div className='grid gap-0.5'>
-                <div className='font-semibold text-sm'>{email.sender.name}</div>
+                <div className='font-semibold text-sm'>{email.from}</div>
                 <div className='text-xs text-muted-foreground'>
-                  {email.sender.email}
+                  {email.from}
                 </div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export function EmailDetail() {
               {/* Template picker could go here */}
             </div>
             <Textarea
-              placeholder={`Reply to ${email.sender.name}...`}
+              placeholder={`Reply to ${email.from}...`}
               className='min-h-[150px]'
               defaultValue={email.aiAnalysis?.draftReply}
             />
