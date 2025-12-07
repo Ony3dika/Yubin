@@ -11,11 +11,11 @@ export const useStore = create(
           userID: userID,
         })),
 
-      documentName: null,
+      googleAccessToken: null,
 
-      updateDocumentName: (documentName) =>
+      updateGoogleAccessToken: (googleAccessToken) =>
         set(() => ({
-          documentName: documentName,
+          googleAccessToken: googleAccessToken,
         })),
     }),
     { name: "yubinStore" }

@@ -6,10 +6,14 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useStore } from "../../store";
 
 const Settings = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
+  const [email, setEmail] = useState<string | null>(null);
+
+  const { updateGoogleAccessToken } = useStore();
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -21,12 +25,15 @@ const Settings = () => {
 
         const { data, error } = await supabase
           .from("gmail_tokens")
-          .select("user_id")
+          .select("user_id, email, access_token")
           .eq("user_id", user.id)
           .single();
 
         if (data) {
+          console.log(data);
           setIsConnected(true);
+          setEmail(data.email);
+          updateGoogleAccessToken(data.access_token);
         }
       } catch (error) {
         console.error("Error checking connection:", error);
@@ -65,10 +72,10 @@ const Settings = () => {
         ) : isConnected ? (
           <Button
             variant={"outline"}
-            className='border-green-500 text-green-600 bg-green-300/20 hover:bg-green-300/30 hover:text-green-600'
+            className='border-green-500 text-green-600 bg-green-300/10 hover:bg-green-300/30 hover:text-green-600'
           >
             <Image className='h-4 w-4 mr-2' src={gmail} alt='gmail' />
-            Gmail Connected
+            Connected {email && `as ${email}`}
           </Button>
         ) : (
           <Button variant={"outline"} onClick={handleConnect}>

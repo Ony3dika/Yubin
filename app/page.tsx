@@ -18,7 +18,7 @@ import {
 } from "@/components/animate-ui/components/radix/tabs";
 import { Button } from "@/components/ui/button";
 import google from "@/public/google.svg";
-import logo from "@/public/logo.png";
+import logo from "@/public/logo1.png";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { supabase } from "@/utils/supabase";
@@ -97,7 +97,7 @@ export default function Home() {
           <Image
             src={logo}
             alt='yubin'
-            className='rounded-xs mr-2'
+            className='mr-2'
             width={30}
             height={30}
           />

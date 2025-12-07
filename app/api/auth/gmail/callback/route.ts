@@ -56,11 +56,22 @@ export async function GET(request: Request) {
     const oauth2Client = getOAuth2Client();
     const { tokens } = await oauth2Client.getToken(code);
 
+    oauth2Client.setCredentials(tokens);
+
+    const { google } = await import("googleapis");
+    const oauth2 = google.oauth2({
+      auth: oauth2Client,
+      version: "v2",
+    });
+
+    const { data: userProfile } = await oauth2.userinfo.get();
+
     const { error: dbError } = await supabase.from("gmail_tokens").upsert({
       user_id: user.id,
       access_token: tokens.access_token,
       refresh_token: tokens.refresh_token,
       expiry_date: tokens.expiry_date,
+      email: userProfile.email,
       updated_at: new Date().toISOString(),
     });
 

@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import logo from "@/public/logo.png";
+import logo from "@/public/logo1.png";
 import {
   LayoutDashboard,
   LogOut,
@@ -42,7 +42,7 @@ const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton className={"py-5"} asChild>
               <Link href={"/app"}>
-                <Image src={logo} width={40} height={40} alt='styla' />
+                <Image src={logo} width={40} height={40} alt='Yubin' />
                 <span className='text-primary hover:text-primary/90 text-3xl font-bold'>
                   Yubin
                 </span>

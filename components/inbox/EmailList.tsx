@@ -10,10 +10,11 @@ import { cn } from "@/lib/utils";
 import { useInboxStore } from "@/hooks/useInboxStore";
 import { mockEmails } from "@/lib/mock-data";
 import { formatDistanceToNow } from "date-fns";
+import { useFetchEmail } from "@/lib/gmail-actions";
+import { useStore } from "../../app/store";
 
 export function EmailList() {
   const {
-    emails,
     setEmails,
     selectedEmailIds,
     toggleSelection,
@@ -29,18 +30,22 @@ export function EmailList() {
   React.useEffect(() => {
     setEmails(mockEmails);
   }, [setEmails]);
+  const { googleAccessToken } = useStore();
 
-  const filteredEmails = emails.filter((email) => {
-    const matchesSearch =
-      email.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      email.sender.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      email.preview.toLowerCase().includes(searchQuery.toLowerCase());
+  const { data: emails } = useFetchEmail(googleAccessToken);
+  console.log(emails);
 
-    if (filter === "unread") return matchesSearch && !email.read;
-    if (filter === "starred")
-      return matchesSearch && email.labels.includes("starred");
-    return matchesSearch;
-  });
+  // const filteredEmails = emails?.filter((email: any) => {
+  //   const matchesSearch =
+  //     email.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     email.sender.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     email.preview.toLowerCase().includes(searchQuery.toLowerCase());
+
+  //   if (filter === "unread") return matchesSearch && !email.read;
+  //   if (filter === "starred")
+  //     return matchesSearch && email.labels.includes("starred");
+  //   return matchesSearch;
+  // });
 
   return (
     <div className='flex h-full flex-col'>
@@ -57,7 +62,7 @@ export function EmailList() {
         {/* Filter Dropdown could go here */}
       </div>
       <ScrollArea className='flex-1 mt-2'>
-        <div className='flex flex-col gap-2 p- pt-0 '>
+        {/* <div className='flex flex-col gap-2 p- pt-0 '>
           {filteredEmails.map((email) => (
             <div
               key={email.id}
@@ -82,7 +87,7 @@ export function EmailList() {
                     )}
                   </div>
                   <div className='ml-auto text-xs text-muted-foreground'>
-                    {/* We'll need to install date-fns or just use simple formatting */}
+                  
                     {new Date(email.date).toLocaleDateString()}
                   </div>
                 </div>
@@ -106,7 +111,7 @@ export function EmailList() {
               )}
             </div>
           ))}
-        </div>
+        </div> */}
       </ScrollArea>
     </div>
   );
