@@ -12,6 +12,7 @@ import { useFetchEmail } from "@/lib/gmail-actions";
 import { useStore } from "../../app/store";
 import Markdown from "react-markdown";
 import { Email } from "@/hooks/useInboxStore";
+import { Skeleton } from "../ui/skeleton";
 export function EmailList() {
   const {
     setEmails,
@@ -22,18 +23,16 @@ export function EmailList() {
     searchQuery,
     setSearchQuery,
     filter,
-    setFilter,
   } = useInboxStore();
 
   const { googleAccessToken } = useStore();
 
-  const { data: emails } = useFetchEmail(googleAccessToken);
-  console.log(emails);
-  // Initialize with mock data
+  const { data: emails, isPending } = useFetchEmail(googleAccessToken);
+  // console.log(emails);
+
   React.useEffect(() => {
     setEmails(emails);
   }, [emails]);
-  // setEmails(emails);
 
   const filteredEmails = emails?.filter((email: Email) => {
     const matchesSearch =
@@ -63,6 +62,17 @@ export function EmailList() {
       </div>
       <ScrollArea className='flex-1 mt-2'>
         <div className='flex flex-col gap-2'>
+          {isPending &&
+            [1, 2, 3, 4, 5].map((item) => (
+              <div
+                key={item}
+                className='w-full items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all animate-pulse'
+              >
+                <Skeleton className='h-8 w-2/3' />
+
+                <Skeleton className='h-12 my-2' />
+              </div>
+            ))}
           {filteredEmails?.map((email: Email) => (
             <div
               key={email.id}

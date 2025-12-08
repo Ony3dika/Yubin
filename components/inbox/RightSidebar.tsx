@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { useInboxStore } from "@/hooks/useInboxStore";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -8,12 +7,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { log } from "console";
 
 export function RightSidebar() {
   const { emails, selectedEmailIds, currentEmailId } = useInboxStore();
 
   const selectedEmails = emails?.filter((e) => selectedEmailIds.has(e.id));
   const currentEmail = emails?.find((e) => e.id === currentEmailId);
+
+  console.log(selectedEmails);
 
   // Determine what to show
   const showBulkActions = selectedEmails.length > 1;
@@ -28,7 +30,7 @@ export function RightSidebar() {
   }
 
   return (
-    <div className='flex h-full flex-col'>
+    <div className='flex h-full flex-col w-full'>
       <div className='flex items-center px-4 py-2'>
         <span className='font-medium'>
           {showBulkActions ? "Bulk Actions" : "Context"}
@@ -102,17 +104,12 @@ export function RightSidebar() {
               {/* Contact Info */}
               <div className='flex flex-col items-center text-center gap-2'>
                 <Avatar className='h-16 w-16'>
-                  <AvatarImage src={currentEmail.sender.avatar} />
-                  <AvatarFallback>
-                    {currentEmail.sender.name.charAt(0)}
-                  </AvatarFallback>
+                  <AvatarFallback>{currentEmail.from.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className='font-semibold'>
-                    {currentEmail.sender.name}
-                  </div>
+                  <div className='font-semibold'>{currentEmail.from}</div>
                   <div className='text-sm text-muted-foreground'>
-                    {currentEmail.sender.email}
+                    {currentEmail.from}
                   </div>
                 </div>
               </div>
@@ -141,8 +138,6 @@ export function RightSidebar() {
               </div>
 
               <Separator />
-
-             
             </div>
           )}
         </div>

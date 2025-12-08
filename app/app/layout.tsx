@@ -9,7 +9,7 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
-      <main className='bg-background md:my-5 w-full md:rounded-lg md:mr-4'>
+      <main className='bg-background md:my-5 w-full md:rounded-lg md:mr-4 overflow-x-auto'>
         <Navbar />
         {children}
       </main>

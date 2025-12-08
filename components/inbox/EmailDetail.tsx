@@ -1,25 +1,12 @@
 "use client";
-import {
-  Reply,
-  ReplyAll,
-  Forward,
-  MoreVertical,
-  Trash2,
-  Archive,
-  Clock,
-  Sparkles,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { useInboxStore } from "@/hooks/useInboxStore";
 import { format } from "date-fns";
+import Markdown from "react-markdown";
 
 export function EmailDetail() {
   const { emails, currentEmailId } = useInboxStore();
@@ -36,38 +23,7 @@ export function EmailDetail() {
   return (
     <div className='flex h-full flex-col'>
       {/* Toolbar */}
-      <div className='flex items-center justify-between  border-b h-[52px]'>
-        <div className='flex items-center gap-2'>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant='ghost' size='icon' disabled={!email}>
-                  <Trash2 className='h-4 w-4' />
-                  <span className='sr-only'>Move to trash</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Move to trash</TooltipContent>
-            </Tooltip>
-            <Separator orientation='vertical' className='mx-1 h-6' />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant='ghost' size='icon' disabled={!email}>
-                  <Clock className='h-4 w-4' />
-                  <span className='sr-only'>Snooze</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Snooze</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-        <div className='flex items-center gap-2'>
-          <Separator orientation='vertical' className='mx-1 h-6' />
-          <Button variant='ghost' size='icon' disabled={!email}>
-            <MoreVertical className='h-4 w-4' />
-            <span className='sr-only'>More</span>
-          </Button>
-        </div>
-      </div>
+      <div className='flex items-center justify-between  border-b h-[52px]' />
 
       {/* Content */}
       <div className='flex-1 overflow-y-auto'>
@@ -81,9 +37,6 @@ export function EmailDetail() {
               </div>
               <div className='grid gap-0.5'>
                 <div className='font-semibold text-sm'>{email.from}</div>
-                <div className='text-xs text-muted-foreground'>
-                  {email.from}
-                </div>
               </div>
             </div>
             <div className='text-xs text-muted-foreground'>
@@ -104,9 +57,7 @@ export function EmailDetail() {
                     email.aiAnalysis.type.slice(1)}
                 </span>
               </div>
-              <p className='text-sm  mb-3'>
-                {email.aiAnalysis.summary}
-              </p>
+              <p className='text-sm  mb-3'>{email.aiAnalysis.summary}</p>
               {email.aiAnalysis.suggestedActions && (
                 <div className='flex flex-wrap gap-2'>
                   {email.aiAnalysis.suggestedActions.map((action) => (
@@ -127,9 +78,9 @@ export function EmailDetail() {
           <Separator />
 
           {/* Body */}
-          <div className='whitespace-pre-wrap text-sm leading-relaxed'>
-            {email.body}
-          </div>
+          <p className='whitespace-pre-wrap text-sm leading-relaxed wrap-break-word w-full'>
+            <Markdown>{email.body}</Markdown>
+          </p>
 
           <Separator className='my-4' />
 
@@ -145,7 +96,6 @@ export function EmailDetail() {
               defaultValue={email.aiAnalysis?.draftReply}
             />
             <div className='flex items-center justify-end'>
-             
               <Button>Send</Button>
             </div>
           </div>

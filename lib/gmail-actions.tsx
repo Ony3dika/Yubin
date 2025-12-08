@@ -32,7 +32,7 @@ export function parseEmail(msg: any) {
     }
   }
 
-  return { id,subject, from, body, date: dateRaw };
+  return { id, subject, from, body, date: dateRaw };
 }
 
 const fetchEmail = async (googleAccessToken: string) => {

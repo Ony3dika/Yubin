@@ -53,11 +53,10 @@ interface InboxState {
   deselectAll: () => void;
   setCurrentEmail: (id: string | null) => void;
   setSearchQuery: (query: string) => void;
-  setFilter: (filter: "all" | "unread" | "starred") => void;
 }
 
 export const useInboxStore = create<InboxState>((set) => ({
-  emails: [], // We'll populate this with mock data later
+  emails: [], 
   selectedEmailIds: new Set(),
   currentEmailId: null,
   searchQuery: "",
@@ -99,5 +98,4 @@ export const useInboxStore = create<InboxState>((set) => ({
 
   setSearchQuery: (query) => set({ searchQuery: query }),
 
-  setFilter: (filter) => set({ filter }),
 }));
